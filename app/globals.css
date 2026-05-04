@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #111111;
+  --color-surface: #2F2F2F;
+  --color-accent: #00B627;
+  --color-accent-dark: #007A1B;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .container-x {
+    @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-12;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-green px-6 py-3.5 font-semibold text-white transition hover:bg-brand-greenDark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/30 bg-transparent px-6 py-3.5 font-semibold text-white transition hover:border-brand-green hover:text-brand-green;
+  }
+
+  .section-heading {
+    @apply font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight;
+  }
+
+  .accent-line {
+    @apply block h-1 w-14 rounded-full bg-brand-green;
+  }
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(17,17,17,0.92), rgba(17,17,17,0.78)),
+    radial-gradient(circle at 20% 20%, rgba(0,182,39,0.15), transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(0,182,39,0.1), transparent 50%);
+}
+
+.hero-pattern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent 80%);
+}
