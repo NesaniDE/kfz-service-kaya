@@ -32,13 +32,13 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all ${
         scrolled
-          ? "bg-brand-black/90 backdrop-blur-md border-b border-white/5"
-          : "bg-gradient-to-b from-brand-black/80 to-transparent"
+          ? "bg-white/95 backdrop-blur-md border-b border-brand-line shadow-sm"
+          : "bg-white/80 backdrop-blur-sm"
       }`}
     >
       <div className="container-x flex h-20 items-center justify-between">
         <a href="#start" className="flex items-center gap-3" aria-label="Startseite">
-          <Logo className="h-9 w-auto" />
+          <Logo className="h-10 sm:h-11 w-auto" variant="dark" />
         </a>
 
         <nav className="hidden lg:flex items-center gap-9">
@@ -46,19 +46,19 @@ export default function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="font-body text-sm font-medium text-white/80 transition hover:text-brand-green"
+              className="font-body text-sm font-semibold text-brand-ink transition hover:text-brand-green"
             >
               {item.label}
             </a>
           ))}
-          <a href="tel:+491796641413" className="btn-primary text-sm">
+          <a href="tel:+491796641413" className="btn-primary text-sm py-3 px-5">
             <PhoneIcon className="h-4 w-4" />
             Jetzt anrufen
           </a>
         </nav>
 
         <button
-          className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/15 text-white"
+          className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-md border border-brand-line bg-white text-brand-ink"
           onClick={() => setOpen((o) => !o)}
           aria-label="Menü öffnen"
           aria-expanded={open}
@@ -76,13 +76,13 @@ export default function Header() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-white/5 bg-brand-black/95 backdrop-blur-md">
+        <div className="lg:hidden border-t border-brand-line bg-white">
           <div className="container-x flex flex-col gap-1 py-5">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-md px-3 py-3 text-base font-medium text-white/85 hover:bg-white/5 hover:text-brand-green"
+                className="rounded-md px-3 py-3 text-base font-semibold text-brand-ink hover:bg-brand-paper hover:text-brand-green"
                 onClick={() => setOpen(false)}
               >
                 {item.label}

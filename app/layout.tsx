@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#111111",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -78,7 +78,7 @@ export default function RootLayout({
 
   return (
     <html lang="de" className={`${inter.variable} ${montserrat.variable}`}>
-      <body className="font-body bg-brand-black text-white antialiased">
+      <body className="font-body bg-white text-brand-ink antialiased">
         {children}
         <script
           type="application/ld+json"

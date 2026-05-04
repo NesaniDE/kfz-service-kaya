@@ -2,23 +2,44 @@ export default function Hero() {
   return (
     <section
       id="start"
-      className="relative isolate overflow-hidden hero-grid hero-pattern pt-32 pb-20 sm:pt-40 sm:pb-28"
+      className="relative isolate overflow-hidden hero-bg hero-pattern pt-32 pb-16 sm:pt-40 sm:pb-24"
     >
+      {/* Diagonal green stripes accent — top right */}
+      <div
+        aria-hidden
+        className="absolute -top-10 right-0 h-48 w-32 sm:w-44 diag-stripes opacity-60 rotate-12"
+      />
+      {/* Big green corner accent — bottom left */}
+      <div
+        aria-hidden
+        className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand-green/10 blur-3xl"
+      />
+
       <div className="container-x relative">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand-green/40 bg-brand-green/10 px-4 py-1.5 text-sm font-medium text-brand-green">
-            <span className="h-2 w-2 rounded-full bg-brand-green animate-pulse" />
+          <span className="section-eyebrow">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
             Werkstatt in Schwäbisch Gmünd
-          </div>
+          </span>
 
-          <h1 className="mt-6 font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight">
-            KFZ-Service Kaya
-            <span className="block mt-3 text-white/85 font-medium text-2xl sm:text-3xl lg:text-4xl">
-              Ihre Werkstatt in Schwäbisch Gmünd
+          <h1 className="mt-6 font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-brand-ink">
+            Ihre Werkstatt
+            <span className="block mt-2">
+              für{" "}
+              <span className="relative inline-block">
+                <span className="relative z-10">alle Marken</span>
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 bottom-1 h-3 sm:h-4 bg-brand-green/30 -z-0"
+                />
+              </span>
+            </span>
+            <span className="block mt-2 text-brand-dark/85 font-semibold text-2xl sm:text-3xl lg:text-4xl">
+              KFZ-Service Kaya in Schwäbisch Gmünd
             </span>
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg text-white/75 leading-relaxed">
+          <p className="mt-6 max-w-2xl text-lg text-brand-dark/75 leading-relaxed">
             Ob Reparatur, Wartung, Diagnose oder Reifenservice: Wir kümmern uns
             zuverlässig um Ihr Fahrzeug und beraten Sie persönlich vor Ort.
             Reparatur, Wartung, Diagnose, Reifenservice und Fahrzeugservice für
@@ -45,11 +66,11 @@ export default function Hero() {
               { label: "Lokal", desc: "Schwäbisch Gmünd" },
               { label: "Schnell", desc: "Termin per Telefon" },
             ].map((item) => (
-              <div key={item.label} className="border-l-2 border-brand-green pl-4">
-                <dt className="font-heading text-base font-bold text-white">
+              <div key={item.label} className="border-l-[3px] border-brand-green pl-4">
+                <dt className="font-heading text-base font-bold text-brand-ink">
                   {item.label}
                 </dt>
-                <dd className="text-sm text-white/60">{item.desc}</dd>
+                <dd className="text-sm text-brand-gray">{item.desc}</dd>
               </div>
             ))}
           </dl>

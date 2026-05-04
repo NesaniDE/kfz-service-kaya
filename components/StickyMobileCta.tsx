@@ -1,28 +1,28 @@
 export default function StickyMobileCta() {
-  const mapsLink =
+  const directionsLink =
     "https://www.google.com/maps/dir/?api=1&destination=Neppersbergstra%C3%9Fe+10%2C+73525+Schw%C3%A4bisch+Gm%C3%BCnd";
   return (
     <div className="lg:hidden fixed bottom-3 inset-x-3 z-40">
-      <div className="grid grid-cols-3 gap-2 rounded-xl border border-white/10 bg-brand-black/95 backdrop-blur p-2 shadow-2xl">
+      <div className="grid grid-cols-3 gap-2 rounded-2xl border border-brand-line bg-white/95 backdrop-blur p-2 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.18)]">
         <a
           href="tel:+491796641413"
-          className="flex flex-col items-center justify-center gap-1 rounded-lg bg-brand-green py-2.5 text-xs font-semibold text-white"
+          className="flex flex-col items-center justify-center gap-1 rounded-xl bg-brand-green py-2.5 text-xs font-bold text-white"
         >
           <PhoneIcon className="h-4 w-4" />
           Anrufen
         </a>
         <a
-          href={mapsLink}
+          href={directionsLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex flex-col items-center justify-center gap-1 rounded-lg border border-white/15 py-2.5 text-xs font-semibold text-white"
+          className="flex flex-col items-center justify-center gap-1 rounded-xl bg-brand-paper py-2.5 text-xs font-bold text-brand-ink"
         >
           <PinIcon className="h-4 w-4" />
           Route
         </a>
         <a
           href="mailto:kfz-service.kaya@web.de"
-          className="flex flex-col items-center justify-center gap-1 rounded-lg border border-white/15 py-2.5 text-xs font-semibold text-white"
+          className="flex flex-col items-center justify-center gap-1 rounded-xl bg-brand-paper py-2.5 text-xs font-bold text-brand-ink"
         >
           <MailIcon className="h-4 w-4" />
           E-Mail

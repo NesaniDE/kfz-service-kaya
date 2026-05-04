@@ -22,7 +22,7 @@ const services: ServiceGroup[] = [
       "Klimaservice",
       "Batterieservice",
     ],
-    icon: <WrenchIcon />,
+    icon: <GearsIcon />,
   },
   {
     title: "Reparaturen",
@@ -37,7 +37,7 @@ const services: ServiceGroup[] = [
       "Windschutzscheiben-Service",
       "Unfallinstandsetzung",
     ],
-    icon: <GearIcon />,
+    icon: <WrenchScrewdriverIcon />,
   },
   {
     title: "Diagnosearbeiten",
@@ -49,10 +49,10 @@ const services: ServiceGroup[] = [
       "Druck- und Leckprüfungen",
       "Fahrzeugsoftware-Update",
     ],
-    icon: <ScanIcon />,
+    icon: <SearchIcon />,
   },
   {
-    title: "Tuning & Fahrzeugoptimierung",
+    title: "Tuning & Optimierung",
     description:
       "Individuelle Anpassung von Optik und Performance - für Ihr ganz persönliches Fahrzeug.",
     items: [
@@ -63,7 +63,7 @@ const services: ServiceGroup[] = [
       "Optische Änderungen",
       "Fahrzeugpflege & Aufbereitung",
     ],
-    icon: <BoltIcon />,
+    icon: <RimIcon />,
   },
   {
     title: "Fahrzeughandel",
@@ -76,12 +76,17 @@ const services: ServiceGroup[] = [
 
 export default function Services() {
   return (
-    <section id="leistungen" className="bg-brand-black py-20 sm:py-28">
+    <section id="leistungen" className="bg-brand-paper py-20 sm:py-28">
       <div className="container-x">
         <div className="max-w-3xl">
-          <span className="accent-line" />
-          <h2 className="section-heading mt-5">Unsere Leistungen</h2>
-          <p className="mt-5 text-white/70 text-lg leading-relaxed">
+          <span className="section-eyebrow">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
+            Leistungen
+          </span>
+          <h2 className="section-heading mt-5">
+            Unser komplettes <span className="text-brand-green">Leistungsspektrum</span>
+          </h2>
+          <p className="section-lead">
             Unsere Leistungen decken viele Bereiche rund um Ihr Fahrzeug ab -
             von klassischen Wartungsarbeiten über Reparaturen bis hin zu
             Diagnose, Tuning und Fahrzeugpflege.
@@ -92,80 +97,108 @@ export default function Services() {
           {services.map((service) => (
             <article
               key={service.title}
-              className="group relative flex flex-col rounded-2xl bg-brand-dark p-8 ring-1 ring-white/5 transition hover:ring-brand-green/40 hover:-translate-y-1 hover:shadow-[0_20px_60px_-30px_rgba(0,182,39,0.5)]"
+              className="group relative flex flex-col rounded-2xl bg-white p-7 shadow-card ring-1 ring-brand-line transition hover:-translate-y-1 hover:shadow-cardHover hover:ring-brand-green/40"
             >
-              <span className="absolute left-0 top-8 bottom-8 w-1 rounded-r bg-brand-green opacity-80" />
-              <div className="flex items-center gap-4">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-green/15 text-brand-green">
-                  {service.icon}
-                </span>
-                <h3 className="font-heading text-xl font-bold text-white">
-                  {service.title}
-                </h3>
+              {/* Header row: hex icon + flyer banner title */}
+              <div className="flex items-center gap-3">
+                <div className="flex items-center">
+                  <div className="hex">
+                    <span className="text-brand-ink">{service.icon}</span>
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flyer-banner w-full">
+                    <span className="truncate">{service.title}</span>
+                  </div>
+                </div>
               </div>
-              <p className="mt-4 text-sm text-white/65 leading-relaxed">
+
+              <p className="mt-5 text-sm text-brand-dark/75 leading-relaxed">
                 {service.description}
               </p>
-              <ul className="mt-6 space-y-2.5">
+
+              <ul className="mt-5 space-y-2.5">
                 {service.items.map((item) => (
                   <li
                     key={item}
-                    className="flex items-start gap-2.5 text-sm text-white/85"
+                    className="flex items-start gap-2.5 text-sm text-brand-ink"
                   >
-                    <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand-green" />
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-green" />
                     {item}
                   </li>
                 ))}
               </ul>
             </article>
           ))}
+
+          {/* CTA card filling the grid */}
+          <article className="relative flex flex-col justify-between rounded-2xl bg-brand-ink p-7 text-white overflow-hidden">
+            <div
+              aria-hidden
+              className="absolute -top-6 -right-6 h-40 w-28 diag-stripes opacity-70 rotate-12"
+            />
+            <div className="relative">
+              <h3 className="font-heading text-2xl font-extrabold">
+                Ihr Fahrzeug braucht Service?
+              </h3>
+              <p className="mt-3 text-white/75 leading-relaxed">
+                Rufen Sie uns an oder schreiben Sie uns eine E-Mail. Wir
+                vereinbaren gerne einen passenden Termin für Sie.
+              </p>
+            </div>
+            <div className="relative mt-6 flex flex-col gap-3">
+              <a href="tel:+491796641413" className="btn-primary w-full justify-center">
+                Jetzt anrufen
+              </a>
+              <a
+                href="mailto:kfz-service.kaya@web.de"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-white/20 bg-transparent px-6 py-3.5 font-semibold text-white transition hover:border-brand-green hover:text-brand-green"
+              >
+                E-Mail schreiben
+              </a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
   );
 }
 
-function CheckIcon({ className = "" }: { className?: string }) {
+/* === Icons (24px) === */
+function GearsIcon() {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M5 12l5 5L20 7" />
+    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="9" cy="9" r="2.5" />
+      <circle cx="9" cy="9" r="5.5" strokeDasharray="1.6 1.6" />
+      <circle cx="16" cy="16" r="2" />
     </svg>
   );
 }
 
-function WrenchIcon() {
+function WrenchScrewdriverIcon() {
   return (
     <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M14.7 6.3a4 4 0 0 1 5.7 5.6l-.7.7a4 4 0 0 1-4.6.7l-7 7a2 2 0 1 1-2.8-2.8l7-7a4 4 0 0 1 .7-4.6l.7-.7a4 4 0 0 1 1-.7" />
+      <path d="M3 21l4.5-4.5" />
     </svg>
   );
 }
 
-function GearIcon() {
+function SearchIcon() {
   return (
     <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="3" />
-      <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" />
+      <circle cx="11" cy="11" r="6" />
+      <path d="m21 21-4.3-4.3" />
     </svg>
   );
 }
 
-function ScanIcon() {
+function RimIcon() {
   return (
     <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 7V5a2 2 0 0 1 2-2h2" />
-      <path d="M17 3h2a2 2 0 0 1 2 2v2" />
-      <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
-      <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
-      <path d="M7 12h10" />
-    </svg>
-  );
-}
-
-function BoltIcon() {
-  return (
-    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="2" />
+      <path d="M12 3v6M12 15v6M3 12h6M15 12h6" />
     </svg>
   );
 }

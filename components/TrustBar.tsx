@@ -2,22 +2,22 @@ const items = [
   { title: "Reparatur aller Marken", icon: WrenchIcon },
   { title: "Persönlicher Service", icon: HandshakeIcon },
   { title: "Lokale Werkstatt", icon: PinIcon },
-  { title: "Schnelle Terminvereinbarung", icon: ClockIcon },
+  { title: "Schnelle Termine", icon: ClockIcon },
 ];
 
 export default function TrustBar() {
   return (
-    <section className="border-y border-white/5 bg-brand-dark/40">
-      <div className="container-x grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/5">
+    <section className="border-y border-brand-line bg-white">
+      <div className="container-x grid grid-cols-2 lg:grid-cols-4 divide-x divide-brand-line">
         {items.map(({ title, icon: Icon }) => (
           <div
             key={title}
-            className="flex items-center gap-3 px-4 py-5 sm:py-7 first:pl-0 last:pr-0"
+            className="flex items-center gap-3 px-4 py-5 sm:py-6 first:pl-0 last:pr-0"
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-green/15 text-brand-green">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-greenLight text-brand-greenDark">
               <Icon className="h-5 w-5" />
             </span>
-            <span className="font-body text-sm sm:text-base font-medium text-white/85">
+            <span className="font-body text-sm sm:text-base font-semibold text-brand-ink">
               {title}
             </span>
           </div>
