@@ -1,10 +1,8 @@
+import MapEmbed from "./MapEmbed";
+
 export default function Contact() {
-  const mapsLink =
-    "https://www.google.com/maps/search/?api=1&query=Neppersbergstra%C3%9Fe+10%2C+73525+Schw%C3%A4bisch+Gm%C3%BCnd";
   const directionsLink =
     "https://www.google.com/maps/dir/?api=1&destination=Neppersbergstra%C3%9Fe+10%2C+73525+Schw%C3%A4bisch+Gm%C3%BCnd";
-  const mapsEmbed =
-    "https://www.google.com/maps?q=Neppersbergstra%C3%9Fe+10%2C+73525+Schw%C3%A4bisch+Gm%C3%BCnd&output=embed";
 
   return (
     <section id="kontakt" className="bg-brand-paper py-20 sm:py-28">
@@ -130,16 +128,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-2xl ring-1 ring-brand-line bg-white min-h-[420px]">
-            <iframe
-              title="Standort KFZ-Service Kaya auf Google Maps"
-              src={mapsEmbed}
-              className="h-full w-full min-h-[420px]"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </div>
+          <MapEmbed />
         </div>
 
         {/* Bottom address strip — like the flyer's green banner */}

@@ -91,10 +91,10 @@ export default function Footer() {
             vorbehalten.
           </p>
           <div className="flex items-center gap-5">
-            <a href="#impressum" className="hover:text-brand-green">
+            <a href="/impressum" className="hover:text-brand-green">
               Impressum
             </a>
-            <a href="#datenschutz" className="hover:text-brand-green">
+            <a href="/datenschutz" className="hover:text-brand-green">
               Datenschutz
             </a>
           </div>
