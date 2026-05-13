@@ -201,9 +201,13 @@ export default function LeistungenPage() {
                 {/* Visual */}
                 <div className="lg:col-span-5">
                   <div className="relative aspect-[5/4] overflow-hidden rounded-2xl ring-1 ring-brand-line shadow-card">
-                    <ServiceVisual id={service.id} className="absolute inset-0" />
+                    <ServiceVisual
+                      id={service.id}
+                      sizes="(min-width: 1024px) 40vw, 100vw"
+                      priority={idx === 0}
+                    />
                     {/* Service number badge */}
-                    <div className="absolute top-5 left-5 inline-flex items-center justify-center h-12 w-12 rounded-full bg-brand-green text-white font-heading font-extrabold text-lg shadow-md">
+                    <div className="absolute top-5 left-5 inline-flex items-center justify-center h-12 w-12 rounded-full bg-brand-green text-white font-heading font-extrabold text-lg shadow-md z-10">
                       0{idx + 1}
                     </div>
                   </div>

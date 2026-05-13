@@ -50,7 +50,7 @@ export default function Services() {
             >
               {/* Image-style panel with the rich service visual */}
               <div className="relative aspect-[4/3] overflow-hidden">
-                <ServiceVisual id={service.id} className="absolute inset-0" />
+                <ServiceVisual id={service.id} sizes="(min-width: 1024px) 30vw, 90vw" />
               </div>
 
               {/* Title + view */}
