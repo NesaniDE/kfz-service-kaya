@@ -13,7 +13,7 @@ type ServiceId =
   | "tuning"
   | "fahrzeughandel";
 
-const SITE_URL = "https://kfz-service-kaya.vercel.app";
+const SITE_URL = "https://www.kfz-werkstatt-kaya.de";
 
 export const metadata: Metadata = {
   title: "Leistungen | KFZ-Service Kaya in Schwäbisch Gmünd",

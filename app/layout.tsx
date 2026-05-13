@@ -16,7 +16,7 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-const SITE_URL = "https://kfz-service-kaya.vercel.app";
+const SITE_URL = "https://www.kfz-werkstatt-kaya.de";
 
 export const metadata: Metadata = {
   title: "KFZ-Service Kaya | Ihre Kfz-Werkstatt in Schwäbisch Gmünd",
