@@ -64,7 +64,7 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const AUTO_ROTATE_MS = 6000;
+const AUTO_ROTATE_MS = 7000;
 
 export default function Gallery() {
   const [active, setActive] = useState(0);
@@ -72,11 +72,11 @@ export default function Gallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const current = testimonials[active];
 
-  const goTo = (i: number) => setActive(((i % testimonials.length) + testimonials.length) % testimonials.length);
+  const goTo = (i: number) =>
+    setActive(((i % testimonials.length) + testimonials.length) % testimonials.length);
   const prev = () => goTo(active - 1);
   const next = () => goTo(active + 1);
 
-  // Auto-rotate, paused on hover / focus / when offscreen
   useEffect(() => {
     if (paused) return;
     const id = window.setTimeout(() => goTo(active + 1), AUTO_ROTATE_MS);
@@ -84,12 +84,11 @@ export default function Gallery() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, paused]);
 
-  // Pause when section leaves the viewport
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
     const io = new IntersectionObserver(
-      ([entry]) => setPaused((p) => (entry.isIntersecting ? false : true)),
+      ([entry]) => setPaused((p) => (entry.isIntersecting ? p : true)),
       { threshold: 0.2 },
     );
     io.observe(el);
@@ -100,185 +99,134 @@ export default function Gallery() {
     <section
       id="galerie"
       ref={sectionRef}
-      className="bg-white py-20 sm:py-28"
+      className="bg-brand-paper py-20 sm:py-28"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
       <div className="container-x">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <h2 className="font-heading text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-brand-green">
-              Einblicke & Referenzen
-            </h2>
-            <p className="mt-4 max-w-2xl text-brand-gray leading-relaxed">
-              Was unsere Kunden über uns sagen — ehrliche Stimmen aus
-              Schwäbisch Gmünd und Umgebung.
-            </p>
-          </div>
-          <div className="text-sm font-semibold text-brand-ink">
-            <span className="tabular-nums">
-              {String(active + 1).padStart(2, "0")}
-            </span>
-            <span className="mx-1 text-brand-gray">/</span>
-            <span className="tabular-nums text-brand-gray">
-              {String(testimonials.length).padStart(2, "0")}
-            </span>
-          </div>
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="font-heading text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-brand-green">
+            Einblicke & Referenzen
+          </h2>
+          <p className="mt-4 text-brand-gray leading-relaxed">
+            Was unsere Kunden über uns sagen — ehrliche Stimmen aus Schwäbisch
+            Gmünd und Umgebung.
+          </p>
         </div>
 
-        <div className="mt-12 grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          {/* Left — thumbs + controls */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-5 gap-2.5 sm:gap-3">
-              {testimonials.map((t, i) => {
-                const isActive = i === active;
-                return (
-                  <button
-                    key={t.name}
-                    onClick={() => goTo(i)}
-                    aria-label={`Referenz von ${t.name} anzeigen`}
-                    aria-pressed={isActive}
-                    className={`group relative aspect-[3/4] overflow-hidden rounded-xl transition-all duration-300 ${
-                      isActive
-                        ? "ring-2 ring-brand-green shadow-card -translate-y-0.5"
-                        : "ring-1 ring-brand-line opacity-70 hover:opacity-100 hover:-translate-y-0.5"
-                    }`}
-                  >
-                    <Image
-                      src={t.image}
-                      alt={t.alt}
-                      fill
-                      className={`object-cover transition-transform duration-500 ${
-                        isActive ? "scale-100" : "scale-105 group-hover:scale-100"
-                      }`}
-                      sizes="(min-width: 1024px) 12vw, 25vw"
-                    />
-                    <div
-                      aria-hidden
-                      className={`absolute inset-0 transition-opacity ${
-                        isActive
-                          ? "bg-gradient-to-t from-brand-ink/65 via-brand-ink/15 to-transparent"
-                          : "bg-brand-ink/35 group-hover:bg-gradient-to-t group-hover:from-brand-ink/55 group-hover:via-brand-ink/10 group-hover:to-transparent"
-                      }`}
-                    />
-                    <div className="absolute inset-x-0 bottom-0 p-2 text-left">
-                      <p className="text-[10px] sm:text-xs font-bold text-white truncate drop-shadow">
-                        {t.name}
-                      </p>
-                    </div>
-                    {isActive && (
-                      <span className="absolute top-2 right-2 inline-flex h-2 w-2 rounded-full bg-brand-green shadow-[0_0_0_3px_rgba(255,255,255,0.85)]" />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Controls + progress */}
-            <div className="space-y-3">
+        <div className="relative mt-12 mx-auto max-w-4xl">
+          {/* Card */}
+          <article
+            key={`card-${active}`}
+            className="relative grid md:grid-cols-12 overflow-hidden rounded-3xl bg-white shadow-card ring-1 ring-brand-line animate-quote-in"
+          >
+            {/* Portrait */}
+            <div className="relative md:col-span-5 aspect-[5/4] sm:aspect-[16/10] md:aspect-auto md:min-h-[420px] overflow-hidden">
+              <Image
+                src={current.image}
+                alt={current.alt}
+                fill
+                priority={active === 0}
+                className="object-cover object-top"
+                sizes="(min-width: 768px) 36vw, 100vw"
+              />
               <div
                 aria-hidden
-                className="h-[3px] w-full overflow-hidden rounded-full bg-brand-line"
+                className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-brand-ink/15 via-transparent to-transparent"
+              />
+              {/* Floating quote mark */}
+              <span
+                aria-hidden
+                className="hidden md:block absolute -right-2 top-6 font-heading text-7xl font-black text-brand-green opacity-95 leading-none select-none"
               >
-                <div
-                  key={`progress-${active}-${paused ? "p" : "r"}`}
-                  className="h-full origin-left bg-brand-green animate-progress"
-                  style={{
-                    ["--progress-duration" as string]: `${AUTO_ROTATE_MS}ms`,
-                    animationPlayState: paused ? "paused" : "running",
-                  }}
-                />
+                &ldquo;
+              </span>
+            </div>
+
+            {/* Quote */}
+            <div className="md:col-span-7 p-7 sm:p-9 lg:p-11 flex flex-col justify-center">
+              <span
+                aria-hidden
+                className="md:hidden font-heading text-6xl font-black text-brand-green/80 leading-none select-none"
+              >
+                &ldquo;
+              </span>
+
+              <blockquote className="mt-2 md:mt-0 font-heading text-lg sm:text-xl lg:text-2xl leading-snug text-brand-ink">
+                {current.quote}
+              </blockquote>
+
+              <div className="mt-6 flex items-center gap-1 text-brand-green">
+                {Array.from({ length: current.rating }).map((_, i) => (
+                  <StarIcon key={i} className="h-4 w-4 fill-current" />
+                ))}
               </div>
-              <div className="flex items-center justify-between">
-                <p className="text-xs uppercase tracking-wider text-brand-gray font-semibold">
-                  {paused ? "Pausiert" : "Automatisch"}
+
+              <div className="mt-5 pt-5 border-t border-brand-line">
+                <p className="font-heading text-base font-extrabold text-brand-ink">
+                  {current.name}
                 </p>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={prev}
-                    aria-label="Vorherige Referenz"
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-line bg-white text-brand-ink transition hover:border-brand-green hover:text-brand-green active:scale-95"
-                  >
-                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M15 18l-6-6 6-6" />
-                    </svg>
-                  </button>
-                  <button
-                    onClick={next}
-                    aria-label="Nächste Referenz"
-                    className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-green text-white shadow-sm transition hover:bg-brand-greenDark active:scale-95"
-                  >
-                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9 6l6 6-6 6" />
-                    </svg>
-                  </button>
-                </div>
+                <p className="mt-0.5 text-sm text-brand-gray">{current.role}</p>
               </div>
             </div>
-          </div>
 
-          {/* Right — featured testimonial */}
-          <div className="lg:col-span-6">
-            <article className="relative mx-auto max-w-sm sm:max-w-md lg:max-w-md">
-              {/* Portrait image */}
+            {/* Progress bar at the bottom of the card */}
+            <div
+              aria-hidden
+              className="absolute inset-x-0 bottom-0 h-[3px] bg-brand-line md:col-span-12"
+            >
               <div
-                key={`img-${active}`}
-                className="relative aspect-[4/5] overflow-hidden rounded-2xl ring-1 ring-brand-line shadow-card animate-image-in"
-              >
-                <Image
-                  src={current.image}
-                  alt={current.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 1024px) 28rem, (min-width: 640px) 28rem, 90vw"
-                  priority={active === 0}
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-brand-ink/70 via-brand-ink/15 to-transparent"
-                />
-                {/* Floating quote mark */}
-                <span
-                  aria-hidden
-                  className="absolute top-6 right-6 font-heading text-7xl sm:text-8xl font-black text-brand-green opacity-90 leading-none select-none"
-                >
-                  &ldquo;
-                </span>
-                {/* Bottom name strip */}
-                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 text-white">
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-1.5 w-10 rounded-full bg-brand-green" />
-                    <p className="font-heading text-base sm:text-lg font-extrabold">
-                      {current.name}
-                    </p>
-                  </div>
-                  <p className="mt-1 text-sm text-white/80">{current.role}</p>
-                </div>
-              </div>
+                key={`progress-${active}-${paused ? "p" : "r"}`}
+                className="h-full origin-left bg-brand-green animate-progress"
+                style={{
+                  ["--progress-duration" as string]: `${AUTO_ROTATE_MS}ms`,
+                  animationPlayState: paused ? "paused" : "running",
+                }}
+              />
+            </div>
+          </article>
 
-              {/* Quote card overlapping below the image */}
-              <div
-                key={`quote-${active}`}
-                className="relative mx-3 -mt-8 sm:mx-6 sm:-mt-10 rounded-2xl bg-white p-5 sm:p-6 shadow-card ring-1 ring-brand-line animate-quote-in"
-              >
-                {/* Star rating */}
-                <div className="flex items-center gap-1 text-brand-green">
-                  {Array.from({ length: current.rating }).map((_, i) => (
-                    <StarIcon key={i} className="h-4 w-4 fill-current" />
-                  ))}
-                </div>
-                <blockquote className="mt-3 font-heading text-base sm:text-lg leading-snug text-brand-ink">
-                  &bdquo;{current.quote}&ldquo;
-                </blockquote>
-                <p className="mt-3 text-xs text-brand-gray">
-                  Referenz {String(active + 1).padStart(2, "0")} von{" "}
-                  {String(testimonials.length).padStart(2, "0")}
-                </p>
-              </div>
-            </article>
-          </div>
+          {/* Arrows on the edges */}
+          <button
+            onClick={prev}
+            aria-label="Vorherige Referenz"
+            className="absolute left-2 lg:-left-5 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white text-brand-ink shadow-md ring-1 ring-brand-line transition hover:ring-brand-green hover:text-brand-green active:scale-95"
+          >
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            onClick={next}
+            aria-label="Nächste Referenz"
+            className="absolute right-2 lg:-right-5 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-brand-green text-white shadow-md transition hover:bg-brand-greenDark active:scale-95"
+          >
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Dot pagination */}
+        <div className="mt-8 flex items-center justify-center gap-2">
+          {testimonials.map((_, i) => {
+            const isActive = i === active;
+            return (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Referenz ${i + 1} von ${testimonials.length}`}
+                aria-current={isActive}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  isActive
+                    ? "w-10 bg-brand-green"
+                    : "w-2 bg-brand-line hover:bg-brand-gray"
+                }`}
+              />
+            );
+          })}
         </div>
       </div>
     </section>
