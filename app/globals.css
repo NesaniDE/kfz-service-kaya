@@ -122,3 +122,48 @@ body {
     transparent 16px
   );
 }
+
+/* Testimonial carousel animations */
+@keyframes testimonial-quote-in {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes testimonial-image-in {
+  0% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes testimonial-progress {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.animate-quote-in {
+  animation: testimonial-quote-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-image-in {
+  animation: testimonial-image-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-progress {
+  animation: testimonial-progress var(--progress-duration, 6s) linear both;
+  transform-origin: left center;
+}

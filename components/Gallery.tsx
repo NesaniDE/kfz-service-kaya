@@ -1,146 +1,291 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-type Tile = {
-  title: string;
-  subtitle: string;
+type Testimonial = {
+  name: string;
+  role: string;
+  quote: string;
+  rating: number;
   image: string;
   alt: string;
 };
 
-const tiles: Tile[] = [
+// Platzhalter — vom Inhaber später durch echte Kundenstimmen ersetzen.
+const testimonials: Testimonial[] = [
   {
-    title: "Werkstatt",
-    subtitle: "Hebebühne & Arbeitsplätze",
+    name: "Thomas M.",
+    role: "Stammkunde aus Schwäbisch Gmünd",
+    quote:
+      "Schnelle Terminvergabe, ehrliche Diagnose und ein fairer Preis. Genau so wünscht man sich eine Werkstatt um die Ecke.",
+    rating: 5,
     image: "/images/hero-workshop.png",
-    alt: "Werkstattinnenraum mit Fahrzeug auf der Hebebühne",
+    alt: "Werkstattszene als Platzhalter für Kundenfoto",
   },
   {
-    title: "Diagnose",
-    subtitle: "Fehlerspeicher & Software",
+    name: "Sandra K.",
+    role: "Kundin aus Mutlangen",
+    quote:
+      "Mustafa hat sich Zeit genommen, mein Auto in Ruhe erklärt und die Bremsen am selben Tag gemacht. Sehr persönlicher Service.",
+    rating: 5,
     image: "/images/gallery-diagnose.png",
-    alt: "Diagnosearbeiten mit Tablet am geöffneten Motorraum",
+    alt: "Diagnoseszene als Platzhalter für Kundenfoto",
   },
   {
-    title: "Reifenservice",
-    subtitle: "Montage & Räderwechsel",
+    name: "Lukas B.",
+    role: "Kunde aus Heubach",
+    quote:
+      "TÜV-Vorbereitung, Bremsen und Reifenwechsel — alles in einem Termin und ohne Aufpreis-Falle. Klare Empfehlung.",
+    rating: 5,
     image: "/images/gallery-tireservice.png",
-    alt: "Reifenservice mit montiertem Rad und Werkstattausrüstung",
+    alt: "Reifenservice als Platzhalter für Kundenfoto",
   },
   {
-    title: "Außenansicht",
-    subtitle: "Standort Schwäbisch Gmünd",
-    image: "/images/about-exterior.png",
-    alt: "Außenansicht der Werkstatt",
-  },
-  {
-    title: "Fahrzeugpflege",
-    subtitle: "Aufbereitung & Optik",
+    name: "Petra H.",
+    role: "Kundin aus Lorch",
+    quote:
+      "Nach dem Unfall hat das Team mein Auto wieder wie neu hingestellt. Sauber, freundlich und unkompliziert.",
+    rating: 5,
     image: "/images/gallery-detailing.png",
-    alt: "Frisch aufbereitetes Fahrzeug in der Werkstatt",
+    alt: "Aufbereitetes Fahrzeug als Platzhalter für Kundenfoto",
+  },
+  {
+    name: "Markus R.",
+    role: "Kunde aus Schwäbisch Gmünd",
+    quote:
+      "Endlich eine Werkstatt, bei der man nicht das Gefühl hat, abgezockt zu werden. Top Beratung, top Preis.",
+    rating: 5,
+    image: "/images/about-exterior.png",
+    alt: "Außenansicht als Platzhalter für Kundenfoto",
   },
 ];
 
-export default function Gallery() {
-  const [featured, setFeatured] = useState(0);
-  const active = tiles[featured];
-  const thumbs = tiles.filter((_, i) => i !== featured).slice(0, 3);
+const AUTO_ROTATE_MS = 6000;
 
-  const prev = () =>
-    setFeatured((f) => (f - 1 + tiles.length) % tiles.length);
-  const next = () => setFeatured((f) => (f + 1) % tiles.length);
+export default function Gallery() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const current = testimonials[active];
+
+  const goTo = (i: number) => setActive(((i % testimonials.length) + testimonials.length) % testimonials.length);
+  const prev = () => goTo(active - 1);
+  const next = () => goTo(active + 1);
+
+  // Auto-rotate, paused on hover / focus / when offscreen
+  useEffect(() => {
+    if (paused) return;
+    const id = window.setTimeout(() => goTo(active + 1), AUTO_ROTATE_MS);
+    return () => window.clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, paused]);
+
+  // Pause when section leaves the viewport
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      ([entry]) => setPaused((p) => (entry.isIntersecting ? false : true)),
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <section id="galerie" className="bg-white py-20 sm:py-28">
+    <section
+      id="galerie"
+      ref={sectionRef}
+      className="bg-white py-20 sm:py-28"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
       <div className="container-x">
-        <h2 className="font-heading text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-brand-green">
-          Einblicke & Referenzen
-        </h2>
-        <p className="mt-4 max-w-2xl text-brand-gray leading-relaxed">
-          Weil uns Transparenz wichtig ist, geben wir Ihnen Einblicke in unsere
-          Werkstatt, unsere Arbeiten und unseren Standort in Schwäbisch Gmünd.
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <div>
+            <h2 className="font-heading text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-brand-green">
+              Einblicke & Referenzen
+            </h2>
+            <p className="mt-4 max-w-2xl text-brand-gray leading-relaxed">
+              Was unsere Kunden über uns sagen — ehrliche Stimmen aus
+              Schwäbisch Gmünd und Umgebung.
+            </p>
+          </div>
+          <div className="text-sm font-semibold text-brand-ink">
+            <span className="tabular-nums">
+              {String(active + 1).padStart(2, "0")}
+            </span>
+            <span className="mx-1 text-brand-gray">/</span>
+            <span className="tabular-nums text-brand-gray">
+              {String(testimonials.length).padStart(2, "0")}
+            </span>
+          </div>
+        </div>
 
-        <div className="mt-12 grid lg:grid-cols-2 gap-8 items-start">
-          {/* Left — 3 small thumbs in a row */}
-          <div className="space-y-6">
-            <div className="grid grid-cols-3 gap-4">
-              {thumbs.map((tile, idx) => (
-                <button
-                  key={tile.title + idx}
-                  onClick={() => {
-                    const realIdx = tiles.findIndex((t) => t.title === tile.title);
-                    if (realIdx >= 0) setFeatured(realIdx);
-                  }}
-                  className="group relative aspect-[3/4] overflow-hidden rounded-lg ring-1 ring-brand-line transition hover:ring-brand-green"
-                  aria-label={`Bild ansehen: ${tile.title}`}
-                >
-                  <Image
-                    src={tile.image}
-                    alt={tile.alt}
-                    fill
-                    className="object-cover transition duration-300 group-hover:scale-[1.03]"
-                    sizes="(min-width: 1024px) 14vw, 28vw"
-                  />
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 bg-gradient-to-t from-brand-ink/55 via-brand-ink/10 to-transparent"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 px-2 py-2 bg-white/90 backdrop-blur-sm">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-brand-ink truncate">
-                      {tile.title}
-                    </p>
-                  </div>
-                </button>
-              ))}
+        <div className="mt-12 grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Left — thumbs + controls */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-3 gap-3 sm:gap-4">
+              {testimonials.map((t, i) => {
+                const isActive = i === active;
+                return (
+                  <button
+                    key={t.name}
+                    onClick={() => goTo(i)}
+                    aria-label={`Referenz von ${t.name} anzeigen`}
+                    aria-pressed={isActive}
+                    className={`group relative aspect-[3/4] overflow-hidden rounded-xl transition-all duration-300 ${
+                      isActive
+                        ? "ring-2 ring-brand-green shadow-card -translate-y-0.5"
+                        : "ring-1 ring-brand-line opacity-70 hover:opacity-100 hover:-translate-y-0.5"
+                    }`}
+                  >
+                    <Image
+                      src={t.image}
+                      alt={t.alt}
+                      fill
+                      className={`object-cover transition-transform duration-500 ${
+                        isActive ? "scale-100" : "scale-105 group-hover:scale-100"
+                      }`}
+                      sizes="(min-width: 1024px) 12vw, 25vw"
+                    />
+                    <div
+                      aria-hidden
+                      className={`absolute inset-0 transition-opacity ${
+                        isActive
+                          ? "bg-gradient-to-t from-brand-ink/65 via-brand-ink/15 to-transparent"
+                          : "bg-brand-ink/35 group-hover:bg-gradient-to-t group-hover:from-brand-ink/55 group-hover:via-brand-ink/10 group-hover:to-transparent"
+                      }`}
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-2 text-left">
+                      <p className="text-[10px] sm:text-xs font-bold text-white truncate drop-shadow">
+                        {t.name}
+                      </p>
+                    </div>
+                    {isActive && (
+                      <span className="absolute top-2 right-2 inline-flex h-2 w-2 rounded-full bg-brand-green shadow-[0_0_0_3px_rgba(255,255,255,0.85)]" />
+                    )}
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Carousel arrows */}
-            <div className="flex items-center justify-center gap-3">
-              <button
-                onClick={prev}
-                aria-label="Vorheriges Bild"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-brand-line bg-white text-brand-gray transition hover:border-brand-green hover:text-brand-green"
+            {/* Controls + progress */}
+            <div className="space-y-3">
+              <div
+                aria-hidden
+                className="h-[3px] w-full overflow-hidden rounded-full bg-brand-line"
               >
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-              <button
-                onClick={next}
-                aria-label="Nächstes Bild"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-green text-white shadow-sm transition hover:bg-brand-greenDark"
-              >
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 6l6 6-6 6" />
-                </svg>
-              </button>
+                <div
+                  key={`progress-${active}-${paused ? "p" : "r"}`}
+                  className="h-full origin-left bg-brand-green animate-progress"
+                  style={{
+                    ["--progress-duration" as string]: `${AUTO_ROTATE_MS}ms`,
+                    animationPlayState: paused ? "paused" : "running",
+                  }}
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <p className="text-xs uppercase tracking-wider text-brand-gray font-semibold">
+                  {paused ? "Pausiert" : "Automatisch"}
+                </p>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={prev}
+                    aria-label="Vorherige Referenz"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-line bg-white text-brand-ink transition hover:border-brand-green hover:text-brand-green active:scale-95"
+                  >
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={next}
+                    aria-label="Nächste Referenz"
+                    className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-green text-white shadow-sm transition hover:bg-brand-greenDark active:scale-95"
+                  >
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 6l6 6-6 6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Right — featured large tile */}
-          <div>
-            <div className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden rounded-xl ring-1 ring-brand-line">
-              <Image
-                src={active.image}
-                alt={active.alt}
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 40vw, 100vw"
-              />
+          {/* Right — featured testimonial */}
+          <div className="lg:col-span-7">
+            <article className="relative">
+              {/* Portrait image */}
               <div
-                aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-brand-ink/45 via-transparent to-transparent"
-              />
-            </div>
-            <p className="mt-5 text-sm font-medium text-brand-ink">
-              {active.title} — {active.subtitle}
-            </p>
+                key={`img-${active}`}
+                className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden rounded-2xl ring-1 ring-brand-line shadow-card animate-image-in"
+              >
+                <Image
+                  src={current.image}
+                  alt={current.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  priority={active === 0}
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-brand-ink/70 via-brand-ink/15 to-transparent"
+                />
+                {/* Floating quote mark */}
+                <span
+                  aria-hidden
+                  className="absolute top-6 right-6 font-heading text-7xl sm:text-8xl font-black text-brand-green opacity-90 leading-none select-none"
+                >
+                  &ldquo;
+                </span>
+                {/* Bottom name strip */}
+                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 text-white">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex h-1.5 w-10 rounded-full bg-brand-green" />
+                    <p className="font-heading text-base sm:text-lg font-extrabold">
+                      {current.name}
+                    </p>
+                  </div>
+                  <p className="mt-1 text-sm text-white/80">{current.role}</p>
+                </div>
+              </div>
+
+              {/* Quote card overlapping below the image */}
+              <div
+                key={`quote-${active}`}
+                className="relative mx-4 -mt-10 sm:mx-10 sm:-mt-14 rounded-2xl bg-white p-6 sm:p-8 shadow-card ring-1 ring-brand-line animate-quote-in"
+              >
+                {/* Star rating */}
+                <div className="flex items-center gap-1 text-brand-green">
+                  {Array.from({ length: current.rating }).map((_, i) => (
+                    <StarIcon key={i} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <blockquote className="mt-3 font-heading text-lg sm:text-xl leading-snug text-brand-ink">
+                  &bdquo;{current.quote}&ldquo;
+                </blockquote>
+                <p className="mt-4 text-xs text-brand-gray">
+                  Referenz {String(active + 1).padStart(2, "0")} von{" "}
+                  {String(testimonials.length).padStart(2, "0")}
+                </p>
+              </div>
+            </article>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function StarIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+    </svg>
   );
 }
