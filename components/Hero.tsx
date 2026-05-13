@@ -2,97 +2,77 @@ export default function Hero() {
   return (
     <section
       id="start"
-      className="relative isolate overflow-hidden hero-bg hero-pattern pt-32 pb-16 sm:pt-40 sm:pb-24"
+      className="relative isolate overflow-hidden bg-brand-ink text-white pt-28 sm:pt-36 pb-24 sm:pb-32"
     >
-      {/* Diagonal green stripes accent — top right */}
+      {/* Dark photo-style background — radial + gradient layers mimic an industrial workshop scene */}
       <div
         aria-hidden
-        className="absolute -top-10 right-0 h-48 w-32 sm:w-44 diag-stripes opacity-60 rotate-12"
+        className="absolute inset-0 -z-10"
+        style={{
+          background: `
+            radial-gradient(ellipse 70% 60% at 85% 30%, rgba(0,182,39,0.35) 0%, rgba(0,182,39,0) 55%),
+            radial-gradient(ellipse 60% 70% at 80% 80%, rgba(255,140,0,0.18) 0%, rgba(255,140,0,0) 55%),
+            radial-gradient(circle at 75% 50%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 30%),
+            linear-gradient(120deg, #0a0a0a 0%, #1a1a1a 45%, #0f0f0f 100%)
+          `,
+        }}
       />
-      {/* Big green corner accent — bottom left */}
+
+      {/* Spark-like dot pattern overlay */}
       <div
         aria-hidden
-        className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand-green/10 blur-3xl"
+        className="absolute inset-0 -z-10 opacity-[0.35]"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(255,170,60,0.65) 1px, transparent 1.5px), radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1.5px)",
+          backgroundSize: "120px 120px, 200px 200px",
+          backgroundPosition: "60% 40%, 70% 60%",
+          maskImage:
+            "radial-gradient(ellipse 60% 60% at 80% 50%, #000 0%, transparent 70%)",
+        }}
+      />
+
+      {/* Diagonal green stripe accent */}
+      <div
+        aria-hidden
+        className="absolute -top-10 right-0 h-56 w-40 sm:w-52 diag-stripes opacity-30 rotate-12"
       />
 
       <div className="container-x relative">
         <div className="max-w-3xl">
-          <span className="section-eyebrow">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
-            Werkstatt in Schwäbisch Gmünd
-          </span>
-
-          <h1 className="mt-6 font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-brand-ink">
-            Ihre Werkstatt
-            <span className="block mt-2">
-              für{" "}
-              <span className="relative inline-block">
-                <span className="relative z-10">alle Marken</span>
-                <span
-                  aria-hidden
-                  className="absolute inset-x-0 bottom-1 h-3 sm:h-4 bg-brand-green/30 -z-0"
-                />
-              </span>
-            </span>
-            <span className="block mt-2 text-brand-dark/85 font-semibold text-2xl sm:text-3xl lg:text-4xl">
-              KFZ-Service Kaya in Schwäbisch Gmünd
+          <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight uppercase">
+            KFZ-Service Kaya —
+            <span className="block mt-2 text-brand-green">
+              Ihre Werkstatt in Schwäbisch Gmünd
             </span>
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg text-brand-dark/75 leading-relaxed">
-            Ob Reparatur, Wartung, Diagnose oder Reifenservice: Wir kümmern uns
-            zuverlässig um Ihr Fahrzeug und beraten Sie persönlich vor Ort.
-            Reparatur, Wartung, Diagnose, Reifenservice und Fahrzeugservice für
-            alle Marken.
+          <p className="mt-7 max-w-xl text-base sm:text-lg text-white/75 leading-relaxed">
+            Persönlich, zuverlässig und vor Ort: Reparatur, Wartung, Diagnose,
+            Reifenservice und Fahrzeughandel — für alle Marken.
           </p>
 
-          <div className="mt-9 flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <a href="tel:+491796641413" className="btn-primary">
-              <PhoneIcon className="h-5 w-5" />
-              Jetzt anrufen
-            </a>
-            <a href="#leistungen" className="btn-secondary">
-              Leistungen ansehen
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div className="mt-9">
+            <a
+              href="#leistungen"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-green px-8 py-4 font-heading text-sm font-bold uppercase tracking-wider text-white shadow-lg transition hover:bg-brand-greenDark hover:-translate-y-0.5"
+            >
+              Mehr erfahren
+              <svg
+                className="h-4 w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
             </a>
           </div>
-
-          <dl className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-y-6 gap-x-4">
-            {[
-              { label: "Alle Marken", desc: "Reparatur" },
-              { label: "Persönlich", desc: "Direkter Service" },
-              { label: "Lokal", desc: "Schwäbisch Gmünd" },
-              { label: "Schnell", desc: "Termin per Telefon" },
-            ].map((item) => (
-              <div key={item.label} className="border-l-[3px] border-brand-green pl-4">
-                <dt className="font-heading text-base font-bold text-brand-ink">
-                  {item.label}
-                </dt>
-                <dd className="text-sm text-brand-gray">{item.desc}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </div>
     </section>
-  );
-}
-
-function PhoneIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.29a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z" />
-    </svg>
   );
 }

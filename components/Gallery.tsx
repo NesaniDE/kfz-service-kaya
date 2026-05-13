@@ -1,120 +1,154 @@
-const tiles = [
+"use client";
+
+import { useState } from "react";
+
+type Tile = {
+  title: string;
+  subtitle: string;
+  accent: string;
+};
+
+const tiles: Tile[] = [
   {
-    title: "Außenansicht",
-    subtitle: "Standort Schwäbisch Gmünd",
-    accent: "from-brand-green/20 to-brand-paper",
-  },
-  {
-    title: "Werkstatt-Einblick",
+    title: "Werkstatt",
     subtitle: "Hebebühne & Arbeitsplätze",
-    accent: "from-brand-paper to-white",
+    accent: "from-zinc-200 to-zinc-50",
   },
   {
-    title: "Diagnosearbeiten",
+    title: "Diagnose",
     subtitle: "Fehlerspeicher & Software",
-    accent: "from-brand-green/15 to-brand-paper",
+    accent: "from-zinc-300 to-zinc-100",
   },
   {
     title: "Reifenservice",
     subtitle: "Montage & Räderwechsel",
-    accent: "from-brand-paper to-brand-paperAlt",
+    accent: "from-zinc-200 to-zinc-100",
+  },
+  {
+    title: "Außenansicht",
+    subtitle: "Standort Schwäbisch Gmünd",
+    accent: "from-zinc-300 to-zinc-50",
   },
   {
     title: "Fahrzeugpflege",
     subtitle: "Aufbereitung & Optik",
-    accent: "from-brand-green/20 to-brand-paper",
-  },
-  {
-    title: "Eröffnung",
-    subtitle: "Seit April 2024",
-    accent: "from-brand-paperAlt to-brand-paper",
+    accent: "from-zinc-200 to-zinc-100",
   },
 ];
 
 export default function Gallery() {
+  const [featured, setFeatured] = useState(0);
+  const active = tiles[featured];
+  const thumbs = tiles.filter((_, i) => i !== featured).slice(0, 3);
+
+  const prev = () =>
+    setFeatured((f) => (f - 1 + tiles.length) % tiles.length);
+  const next = () => setFeatured((f) => (f + 1) % tiles.length);
+
   return (
     <section id="galerie" className="bg-white py-20 sm:py-28">
       <div className="container-x">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-          <div className="max-w-2xl">
-            <span className="section-eyebrow">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
-              Galerie
-            </span>
-            <h2 className="section-heading mt-5">
-              Einblicke in unsere <span className="text-brand-green">Werkstatt</span>
-            </h2>
-            <p className="section-lead">
-              Werfen Sie einen Blick in unsere Werkstatt und erhalten Sie einen
-              Eindruck von unserem Standort, unseren Arbeiten und unserem
-              Service.
+        <h2 className="font-heading text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-brand-green">
+          Einblicke & Referenzen
+        </h2>
+        <p className="mt-4 max-w-2xl text-brand-gray leading-relaxed">
+          Weil uns Transparenz wichtig ist, geben wir Ihnen Einblicke in unsere
+          Werkstatt, unsere Arbeiten und unseren Standort in Schwäbisch Gmünd.
+        </p>
+
+        <div className="mt-12 grid lg:grid-cols-2 gap-8 items-start">
+          {/* Left — 3 small thumbs in a row */}
+          <div className="space-y-6">
+            <div className="grid grid-cols-3 gap-4">
+              {thumbs.map((tile, idx) => (
+                <button
+                  key={tile.title + idx}
+                  onClick={() => {
+                    const realIdx = tiles.findIndex((t) => t.title === tile.title);
+                    if (realIdx >= 0) setFeatured(realIdx);
+                  }}
+                  className={`group relative aspect-[3/4] overflow-hidden rounded-lg ring-1 ring-brand-line bg-gradient-to-br ${tile.accent} transition hover:ring-brand-green`}
+                  aria-label={`Bild ansehen: ${tile.title}`}
+                >
+                  <CertificateLikeArt />
+                  <div className="absolute inset-x-0 bottom-0 px-2 py-2 bg-white/90 backdrop-blur-sm">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-brand-ink truncate">
+                      {tile.title}
+                    </p>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            {/* Carousel arrows */}
+            <div className="flex items-center justify-center gap-3">
+              <button
+                onClick={prev}
+                aria-label="Vorheriges Bild"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-brand-line bg-white text-brand-gray transition hover:border-brand-green hover:text-brand-green"
+              >
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                onClick={next}
+                aria-label="Nächstes Bild"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-green text-white shadow-sm transition hover:bg-brand-greenDark"
+              >
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 6l6 6-6 6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Right — featured large tile */}
+          <div>
+            <div
+              className={`relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden rounded-xl ring-1 ring-brand-line bg-gradient-to-br ${active.accent}`}
+            >
+              <CertificateLikeArt large />
+            </div>
+            <p className="mt-5 text-sm font-medium text-brand-ink">
+              {active.title} — {active.subtitle}
             </p>
           </div>
-          <a
-            href="https://www.instagram.com/kfzservice_kaya"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 self-start sm:self-end rounded-full border-2 border-brand-ink/10 bg-white px-5 py-2.5 text-sm font-semibold text-brand-ink transition hover:border-brand-green hover:text-brand-green"
-          >
-            <InstagramIcon className="h-4 w-4" />
-            Mehr auf Instagram
-          </a>
-        </div>
-
-        <div className="mt-12 grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {tiles.map((tile, idx) => (
-            <div
-              key={tile.title}
-              className={`group relative overflow-hidden rounded-2xl ring-1 ring-brand-line ${
-                idx === 0
-                  ? "lg:col-span-2 lg:row-span-2 aspect-[4/3]"
-                  : "aspect-square sm:aspect-[4/3]"
-              }`}
-            >
-              <div className={`absolute inset-0 bg-gradient-to-br ${tile.accent}`} />
-              <div
-                className="absolute inset-0 opacity-30 mix-blend-multiply"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(rgba(17,17,17,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(17,17,17,0.06) 1px, transparent 1px)",
-                  backgroundSize: "32px 32px",
-                }}
-              />
-              {/* Diagonal stripe accent */}
-              <div
-                aria-hidden
-                className={`absolute -top-4 -right-4 h-24 w-16 diag-stripes opacity-50 rotate-12 ${
-                  idx === 0 ? "h-32 w-20" : ""
-                }`}
-              />
-              <div className="relative flex h-full flex-col justify-between p-5 sm:p-6">
-                <span className="inline-flex w-max items-center gap-2 rounded-full bg-white/90 backdrop-blur px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-ink shadow-sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
-                  Bald Foto
-                </span>
-                <div>
-                  <h3 className="font-heading text-base sm:text-xl font-extrabold text-brand-ink">
-                    {tile.title}
-                  </h3>
-                  <p className="mt-1 text-xs sm:text-sm text-brand-dark/65">
-                    {tile.subtitle}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function InstagramIcon({ className = "" }: { className?: string }) {
+/* Placeholder artwork that loosely mimics a document/photo tile */
+function CertificateLikeArt({ large = false }: { large?: boolean }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" />
-    </svg>
+    <>
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-25"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(17,17,17,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(17,17,17,0.1) 1px, transparent 1px)",
+          backgroundSize: large ? "40px 40px" : "20px 20px",
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute -top-4 -right-4 h-20 w-12 diag-stripes opacity-40 rotate-12"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-x-6 top-6 h-2 rounded bg-brand-ink/15"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-x-6 top-12 h-2 rounded bg-brand-ink/10"
+      />
+      <div
+        aria-hidden
+        className={`absolute ${large ? "left-6 right-6 top-24 bottom-20" : "left-4 right-4 top-16 bottom-12"} rounded-md bg-white/40 ring-1 ring-brand-ink/10`}
+      />
+    </>
   );
 }

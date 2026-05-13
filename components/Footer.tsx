@@ -2,58 +2,33 @@ import Logo from "./Logo";
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-ink text-white">
-      <div className="container-x py-14 grid gap-10 lg:grid-cols-12">
-        <div className="lg:col-span-5 max-w-md">
-          <Logo className="h-12 w-auto" variant="light" />
-          <p className="mt-5 text-sm text-white/65 leading-relaxed">
-            KFZ-Service Kaya - Ihre Kfz-Werkstatt in Schwäbisch Gmünd für
-            Reparatur, Wartung, Diagnose, Reifenservice und Fahrzeugservice.
+    <footer className="bg-white border-t border-brand-line text-brand-ink">
+      <div className="container-x py-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
+        {/* Brand column */}
+        <div className="lg:col-span-4 max-w-sm">
+          <Logo className="h-12 w-auto" variant="dark" />
+          <p className="mt-5 text-sm text-brand-gray leading-relaxed">
+            KFZ-Service Kaya — Ihre Kfz-Werkstatt in Schwäbisch Gmünd für
+            Reparatur, Wartung, Diagnose, Reifenservice und Fahrzeughandel.
+            Persönlich und zuverlässig direkt vor Ort.
           </p>
-          <div className="mt-6 flex items-center gap-3">
-            <a
-              href="tel:+491796641413"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-green text-white hover:bg-brand-greenDark"
-              aria-label="Anrufen"
-            >
-              <PhoneIcon className="h-4 w-4" />
-            </a>
-            <a
-              href="mailto:kfz-service.kaya@web.de"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-brand-green"
-              aria-label="E-Mail schreiben"
-            >
-              <MailIcon className="h-4 w-4" />
-            </a>
-            <a
-              href="https://www.instagram.com/kfzservice_kaya"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-brand-green"
-              aria-label="Instagram"
-            >
-              <InstagramIcon className="h-4 w-4" />
-            </a>
-          </div>
         </div>
 
-        <div className="lg:col-span-3">
-          <p className="font-heading text-sm font-bold uppercase tracking-wider text-white/85">
-            Navigation
+        {/* Unternehmen */}
+        <div className="lg:col-span-2">
+          <p className="font-heading text-sm font-extrabold uppercase tracking-wider text-brand-green">
+            Unternehmen
           </p>
-          <ul className="mt-4 space-y-2.5 text-sm">
+          <ul className="mt-5 space-y-3 text-sm">
             {[
-              { href: "#start", label: "Start" },
-              { href: "#leistungen", label: "Leistungen" },
               { href: "#ueber-uns", label: "Über uns" },
-              { href: "#galerie", label: "Galerie" },
+              { href: "#galerie", label: "Einblicke" },
               { href: "#kontakt", label: "Kontakt" },
+              { href: "/datenschutz", label: "Datenschutz" },
+              { href: "/impressum", label: "Impressum" },
             ].map((item) => (
               <li key={item.href}>
-                <a
-                  href={item.href}
-                  className="text-white/65 hover:text-brand-green"
-                >
+                <a href={item.href} className="text-brand-ink hover:text-brand-green">
                   {item.label}
                 </a>
               </li>
@@ -61,46 +36,89 @@ export default function Footer() {
           </ul>
         </div>
 
+        {/* Leistungen */}
+        <div className="lg:col-span-2">
+          <p className="font-heading text-sm font-extrabold uppercase tracking-wider text-brand-green">
+            Leistungen
+          </p>
+          <ul className="mt-5 space-y-3 text-sm">
+            {[
+              "Wartung",
+              "Reparaturen",
+              "Diagnose",
+              "Reifenservice",
+              "Tuning",
+              "Fahrzeughandel",
+            ].map((label) => (
+              <li key={label}>
+                <a href="#leistungen" className="text-brand-ink hover:text-brand-green">
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Kontakt info */}
         <div className="lg:col-span-4">
-          <p className="font-heading text-sm font-bold uppercase tracking-wider text-white/85">
+          <p className="font-heading text-sm font-extrabold uppercase tracking-wider text-brand-green">
             Kontakt
           </p>
-          <address className="mt-4 not-italic space-y-2 text-sm text-white/70">
-            <div>Neppersbergstraße 10</div>
-            <div>73525 Schwäbisch Gmünd</div>
-            <a
-              href="tel:+491796641413"
-              className="block hover:text-brand-green"
-            >
-              0179 / 6641413
-            </a>
-            <a
-              href="mailto:kfz-service.kaya@web.de"
-              className="block hover:text-brand-green break-all"
-            >
-              kfz-service.kaya@web.de
-            </a>
-          </address>
+          <ul className="mt-5 space-y-4 text-sm">
+            <li className="flex items-start gap-3">
+              <PinIcon className="h-5 w-5 shrink-0 text-brand-green mt-0.5" />
+              <div className="leading-snug">
+                Neppersbergstraße 10
+                <br />
+                73525 Schwäbisch Gmünd
+              </div>
+            </li>
+            <li className="flex items-center gap-3">
+              <PhoneIcon className="h-5 w-5 shrink-0 text-brand-green" />
+              <a href="tel:+491796641413" className="hover:text-brand-green">
+                0179 / 6641413
+              </a>
+            </li>
+            <li className="flex items-center gap-3">
+              <MailIcon className="h-5 w-5 shrink-0 text-brand-green" />
+              <a
+                href="mailto:kfz-service.kaya@web.de"
+                className="hover:text-brand-green break-all"
+              >
+                kfz-service.kaya@web.de
+              </a>
+            </li>
+            <li className="flex items-center gap-3">
+              <InstagramIcon className="h-5 w-5 shrink-0 text-brand-green" />
+              <a
+                href="https://www.instagram.com/kfzservice_kaya"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-brand-green"
+              >
+                @kfzservice_kaya
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div className="border-t border-white/10">
-        <div className="container-x flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-6 text-xs text-white/55">
-          <p>
-            &copy; {new Date().getFullYear()} KFZ-Service Kaya. Alle Rechte
-            vorbehalten.
-          </p>
-          <div className="flex items-center gap-5">
-            <a href="/impressum" className="hover:text-brand-green">
-              Impressum
-            </a>
-            <a href="/datenschutz" className="hover:text-brand-green">
-              Datenschutz
-            </a>
-          </div>
+      <div className="border-t border-brand-line">
+        <div className="container-x py-5 text-xs text-brand-gray">
+          Copyright &copy; {new Date().getFullYear()} KFZ-Service Kaya. Alle
+          Rechte vorbehalten.
         </div>
       </div>
     </footer>
+  );
+}
+
+function PinIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
   );
 }
 

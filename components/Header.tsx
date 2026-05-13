@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import Logo from "./Logo";
 
 const navItems = [
-  { href: "#leistungen", label: "Leistungen" },
+  { href: "#start", label: "Home" },
   { href: "#ueber-uns", label: "Über uns" },
-  { href: "#galerie", label: "Galerie" },
+  { href: "#leistungen", label: "Leistungen" },
+  { href: "#galerie", label: "Einblicke" },
   { href: "#kontakt", label: "Kontakt" },
 ];
 
