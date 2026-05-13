@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getConsent, onConsentChange } from "./CookieBanner";
 
 const mapsEmbed =
   "https://www.google.com/maps?q=Neppersbergstra%C3%9Fe+10%2C+73525+Schw%C3%A4bisch+Gm%C3%BCnd&output=embed";
@@ -9,6 +10,14 @@ const mapsLink =
 
 export default function MapEmbed() {
   const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (getConsent() === "all") setLoaded(true);
+    const off = onConsentChange((v) => {
+      if (v === "all") setLoaded(true);
+    });
+    return off;
+  }, []);
 
   return (
     <div className="relative overflow-hidden rounded-2xl ring-1 ring-brand-line bg-brand-paper min-h-[420px]">

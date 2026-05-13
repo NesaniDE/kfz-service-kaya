@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
-import { ReactNode } from "react";
 import Contact from "@/components/Contact";
 import CtaBanner from "@/components/CtaBanner";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import ServiceVisual from "@/components/ServiceVisual";
+
+type ServiceId =
+  | "wartung"
+  | "reparaturen"
+  | "diagnose"
+  | "reifenservice"
+  | "tuning"
+  | "fahrzeughandel";
 
 const SITE_URL = "https://kfz-service-kaya.vercel.app";
 
@@ -15,12 +23,11 @@ export const metadata: Metadata = {
 };
 
 type Service = {
-  id: string;
+  id: ServiceId;
   title: string;
   lead: string;
   description: string;
   items: string[];
-  icon: ReactNode;
 };
 
 const services: Service[] = [
@@ -40,7 +47,6 @@ const services: Service[] = [
       "Ölwechsel & Filterwechsel",
       "Beleuchtungscheck",
     ],
-    icon: <GearsIcon />,
   },
   {
     id: "reparaturen",
@@ -57,7 +63,6 @@ const services: Service[] = [
       "Windschutzscheiben-Service",
       "Unfallinstandsetzung",
     ],
-    icon: <WrenchIcon />,
   },
   {
     id: "diagnose",
@@ -72,7 +77,6 @@ const services: Service[] = [
       "Fahrzeugsoftware-Update",
       "Steuergeräte-Diagnose",
     ],
-    icon: <SearchIcon />,
   },
   {
     id: "reifenservice",
@@ -87,7 +91,6 @@ const services: Service[] = [
       "Reifeneinlagerung",
       "RDKS-Service (Reifendruck-Kontrollsystem)",
     ],
-    icon: <RimIcon />,
   },
   {
     id: "tuning",
@@ -103,7 +106,6 @@ const services: Service[] = [
       "Optische Änderungen",
       "Fahrzeugpflege & Aufbereitung",
     ],
-    icon: <SparkIcon />,
   },
   {
     id: "fahrzeughandel",
@@ -117,7 +119,6 @@ const services: Service[] = [
       "Fahrzeug-Verkauf",
       "Persönliche Beratung",
     ],
-    icon: <CarIcon />,
   },
 ];
 
@@ -199,30 +200,8 @@ export default function LeistungenPage() {
               >
                 {/* Visual */}
                 <div className="lg:col-span-5">
-                  <div
-                    className={`relative aspect-[5/4] overflow-hidden rounded-2xl ring-1 ring-brand-line bg-gradient-to-br ${
-                      idx % 2 === 0
-                        ? "from-zinc-200 to-zinc-50"
-                        : "from-zinc-300 to-zinc-100"
-                    }`}
-                  >
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 opacity-20"
-                      style={{
-                        backgroundImage:
-                          "radial-gradient(circle at 30% 30%, rgba(17,17,17,0.2) 0%, transparent 60%), linear-gradient(135deg, rgba(17,17,17,0.06) 0%, transparent 50%)",
-                      }}
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute -top-6 -right-6 h-32 w-20 diag-stripes opacity-35 rotate-12"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-brand-ink/80 scale-[5]">
-                        {service.icon}
-                      </span>
-                    </div>
+                  <div className="relative aspect-[5/4] overflow-hidden rounded-2xl ring-1 ring-brand-line shadow-card">
+                    <ServiceVisual id={service.id} className="absolute inset-0" />
                     {/* Service number badge */}
                     <div className="absolute top-5 left-5 inline-flex items-center justify-center h-12 w-12 rounded-full bg-brand-green text-white font-heading font-extrabold text-lg shadow-md">
                       0{idx + 1}
@@ -281,67 +260,6 @@ export default function LeistungenPage() {
       </main>
       <Footer />
     </>
-  );
-}
-
-/* === Icons === */
-function GearsIcon() {
-  return (
-    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="3" />
-      <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" />
-    </svg>
-  );
-}
-
-function WrenchIcon() {
-  return (
-    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14.7 6.3a4 4 0 0 1 5.7 5.6l-.7.7a4 4 0 0 1-4.6.7l-7 7a2 2 0 1 1-2.8-2.8l7-7a4 4 0 0 1 .7-4.6l.7-.7a4 4 0 0 1 1-.7" />
-      <path d="M3 21l4.5-4.5" />
-    </svg>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="11" cy="11" r="6" />
-      <path d="m21 21-4.3-4.3" />
-      <path d="M11 8v3l2 2" />
-    </svg>
-  );
-}
-
-function RimIcon() {
-  return (
-    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="12" cy="12" r="2" />
-      <path d="M12 3v6M12 15v6M3 12h6M15 12h6" />
-    </svg>
-  );
-}
-
-function SparkIcon() {
-  return (
-    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3" />
-    </svg>
-  );
-}
-
-function CarIcon() {
-  return (
-    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M5 17h14" />
-      <path d="M5 17v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2" />
-      <path d="M15 17v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2" />
-      <path d="M3 13l2-6a2 2 0 0 1 1.9-1.4h10.2A2 2 0 0 1 19 7l2 6" />
-      <path d="M3 13h18" />
-      <circle cx="7.5" cy="14.5" r="1.5" />
-      <circle cx="16.5" cy="14.5" r="1.5" />
-    </svg>
   );
 }
 
