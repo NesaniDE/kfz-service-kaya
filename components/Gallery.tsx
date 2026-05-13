@@ -130,8 +130,8 @@ export default function Gallery() {
 
         <div className="mt-12 grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left — thumbs + controls */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-3 gap-3 sm:gap-4">
+          <div className="lg:col-span-6 space-y-6">
+            <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-5 gap-2.5 sm:gap-3">
               {testimonials.map((t, i) => {
                 const isActive = i === active;
                 return (
@@ -220,19 +220,19 @@ export default function Gallery() {
           </div>
 
           {/* Right — featured testimonial */}
-          <div className="lg:col-span-7">
-            <article className="relative">
+          <div className="lg:col-span-6">
+            <article className="relative mx-auto max-w-sm sm:max-w-md lg:max-w-md">
               {/* Portrait image */}
               <div
                 key={`img-${active}`}
-                className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden rounded-2xl ring-1 ring-brand-line shadow-card animate-image-in"
+                className="relative aspect-[4/5] overflow-hidden rounded-2xl ring-1 ring-brand-line shadow-card animate-image-in"
               >
                 <Image
                   src={current.image}
                   alt={current.alt}
                   fill
                   className="object-cover"
-                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  sizes="(min-width: 1024px) 28rem, (min-width: 640px) 28rem, 90vw"
                   priority={active === 0}
                 />
                 <div
@@ -261,7 +261,7 @@ export default function Gallery() {
               {/* Quote card overlapping below the image */}
               <div
                 key={`quote-${active}`}
-                className="relative mx-4 -mt-10 sm:mx-10 sm:-mt-14 rounded-2xl bg-white p-6 sm:p-8 shadow-card ring-1 ring-brand-line animate-quote-in"
+                className="relative mx-3 -mt-8 sm:mx-6 sm:-mt-10 rounded-2xl bg-white p-5 sm:p-6 shadow-card ring-1 ring-brand-line animate-quote-in"
               >
                 {/* Star rating */}
                 <div className="flex items-center gap-1 text-brand-green">
@@ -269,10 +269,10 @@ export default function Gallery() {
                     <StarIcon key={i} className="h-4 w-4 fill-current" />
                   ))}
                 </div>
-                <blockquote className="mt-3 font-heading text-lg sm:text-xl leading-snug text-brand-ink">
+                <blockquote className="mt-3 font-heading text-base sm:text-lg leading-snug text-brand-ink">
                   &bdquo;{current.quote}&ldquo;
                 </blockquote>
-                <p className="mt-4 text-xs text-brand-gray">
+                <p className="mt-3 text-xs text-brand-gray">
                   Referenz {String(active + 1).padStart(2, "0")} von{" "}
                   {String(testimonials.length).padStart(2, "0")}
                 </p>
