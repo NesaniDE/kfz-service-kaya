@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import Image from "next/image";
 
 const stats = [
   {
@@ -49,66 +50,19 @@ export default function About() {
             </p>
           </div>
 
-          {/* Right — workshop visual (gradient placeholder mimicking a building photo) */}
+          {/* Right — workshop exterior photo */}
           <div className="relative min-h-[280px] lg:min-h-0 overflow-hidden">
+            <Image
+              src="/images/about-exterior.png"
+              alt="Außenansicht der Werkstatt von KFZ-Service Kaya"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+            />
             <div
               aria-hidden
-              className="absolute inset-0"
-              style={{
-                background: `
-                  linear-gradient(180deg, #87ceeb 0%, #b8dff0 45%, #e5e5e5 45%, #c8c8c8 100%)
-                `,
-              }}
+              className="absolute inset-0 bg-gradient-to-t from-brand-ink/20 via-transparent to-transparent"
             />
-            {/* Building silhouette */}
-            <svg
-              aria-hidden
-              viewBox="0 0 400 280"
-              preserveAspectRatio="xMidYMid slice"
-              className="absolute inset-0 h-full w-full"
-            >
-              {/* Sky gradient already on bg, now building */}
-              <rect x="40" y="110" width="320" height="140" fill="#1e7fbf" />
-              <rect x="40" y="105" width="320" height="10" fill="#155b8c" />
-              {/* Roof line */}
-              <rect x="40" y="105" width="320" height="3" fill="#0d3f63" />
-              {/* Windows */}
-              <g fill="#ffffff" opacity="0.85">
-                <rect x="70" y="130" width="34" height="22" />
-                <rect x="114" y="130" width="34" height="22" />
-                <rect x="158" y="130" width="34" height="22" />
-                <rect x="252" y="130" width="34" height="22" />
-                <rect x="296" y="130" width="34" height="22" />
-              </g>
-              {/* Garage door */}
-              <rect x="200" y="170" width="50" height="80" fill="#0f0f0f" />
-              <g stroke="#333" strokeWidth="1.5">
-                <line x1="200" y1="190" x2="250" y2="190" />
-                <line x1="200" y1="210" x2="250" y2="210" />
-                <line x1="200" y1="230" x2="250" y2="230" />
-              </g>
-              {/* Logo strip on building */}
-              <rect x="155" y="118" width="100" height="14" fill="#ffffff" />
-              <text
-                x="205"
-                y="129"
-                fontFamily="Montserrat, sans-serif"
-                fontSize="9"
-                fontWeight="900"
-                fill="#00B627"
-                textAnchor="middle"
-                letterSpacing="1"
-              >
-                KAYA
-              </text>
-              {/* Ground */}
-              <rect x="0" y="245" width="400" height="35" fill="#a0a0a0" />
-              {/* Clouds */}
-              <g fill="#ffffff" opacity="0.75">
-                <ellipse cx="70" cy="50" rx="28" ry="8" />
-                <ellipse cx="320" cy="35" rx="34" ry="9" />
-              </g>
-            </svg>
           </div>
         </div>
 

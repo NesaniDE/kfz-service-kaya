@@ -1,19 +1,30 @@
+import Image from "next/image";
+
 export default function Hero() {
   return (
     <section
       id="start"
       className="relative isolate overflow-hidden bg-brand-ink text-white pt-28 sm:pt-36 pb-24 sm:pb-32"
     >
-      {/* Dark photo-style background — radial + gradient layers mimic an industrial workshop scene */}
+      <div aria-hidden className="absolute inset-0 -z-20">
+        <Image
+          src="/images/hero-workshop.png"
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+      </div>
+
       <div
         aria-hidden
         className="absolute inset-0 -z-10"
         style={{
           background: `
-            radial-gradient(ellipse 70% 60% at 85% 30%, rgba(0,182,39,0.35) 0%, rgba(0,182,39,0) 55%),
-            radial-gradient(ellipse 60% 70% at 80% 80%, rgba(255,140,0,0.18) 0%, rgba(255,140,0,0) 55%),
-            radial-gradient(circle at 75% 50%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 30%),
-            linear-gradient(120deg, #0a0a0a 0%, #1a1a1a 45%, #0f0f0f 100%)
+            radial-gradient(ellipse 70% 60% at 85% 30%, rgba(0,182,39,0.26) 0%, rgba(0,182,39,0) 55%),
+            radial-gradient(ellipse 60% 70% at 80% 80%, rgba(255,140,0,0.16) 0%, rgba(255,140,0,0) 55%),
+            linear-gradient(120deg, rgba(10,10,10,0.88) 0%, rgba(17,17,17,0.72) 45%, rgba(8,8,8,0.9) 100%)
           `,
         }}
       />
@@ -21,7 +32,7 @@ export default function Hero() {
       {/* Spark-like dot pattern overlay */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 opacity-[0.35]"
+        className="absolute inset-0 -z-10 opacity-[0.28]"
         style={{
           backgroundImage:
             "radial-gradient(rgba(255,170,60,0.65) 1px, transparent 1.5px), radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1.5px)",
