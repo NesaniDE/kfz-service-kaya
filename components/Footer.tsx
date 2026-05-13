@@ -21,9 +21,9 @@ export default function Footer() {
           </p>
           <ul className="mt-5 space-y-3 text-sm">
             {[
-              { href: "#ueber-uns", label: "Über uns" },
-              { href: "#galerie", label: "Einblicke" },
-              { href: "#kontakt", label: "Kontakt" },
+              { href: "/#ueber-uns", label: "Über uns" },
+              { href: "/#galerie", label: "Einblicke" },
+              { href: "/#kontakt", label: "Kontakt" },
               { href: "/datenschutz", label: "Datenschutz" },
               { href: "/impressum", label: "Impressum" },
             ].map((item) => (
@@ -43,16 +43,16 @@ export default function Footer() {
           </p>
           <ul className="mt-5 space-y-3 text-sm">
             {[
-              "Wartung",
-              "Reparaturen",
-              "Diagnose",
-              "Reifenservice",
-              "Tuning",
-              "Fahrzeughandel",
-            ].map((label) => (
-              <li key={label}>
-                <a href="#leistungen" className="text-brand-ink hover:text-brand-green">
-                  {label}
+              { href: "/leistungen#wartung", label: "Wartung" },
+              { href: "/leistungen#reparaturen", label: "Reparaturen" },
+              { href: "/leistungen#diagnose", label: "Diagnose" },
+              { href: "/leistungen#reifenservice", label: "Reifenservice" },
+              { href: "/leistungen#tuning", label: "Tuning" },
+              { href: "/leistungen#fahrzeughandel", label: "Fahrzeughandel" },
+            ].map((item) => (
+              <li key={item.href}>
+                <a href={item.href} className="text-brand-ink hover:text-brand-green">
+                  {item.label}
                 </a>
               </li>
             ))}

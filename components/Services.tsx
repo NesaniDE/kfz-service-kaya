@@ -11,37 +11,37 @@ const services: Service[] = [
   {
     title: "Wartung",
     icon: <GearsIcon />,
-    href: "#wartung",
+    href: "/leistungen#wartung",
     accent: "from-zinc-200 to-zinc-100",
   },
   {
     title: "Reparaturen",
     icon: <WrenchScrewdriverIcon />,
-    href: "#reparaturen",
+    href: "/leistungen#reparaturen",
     accent: "from-zinc-300 to-zinc-100",
   },
   {
     title: "Diagnose",
     icon: <SearchIcon />,
-    href: "#diagnose",
+    href: "/leistungen#diagnose",
     accent: "from-zinc-200 to-zinc-50",
   },
   {
     title: "Reifenservice",
     icon: <RimIcon />,
-    href: "#reifen",
+    href: "/leistungen#reifenservice",
     accent: "from-zinc-300 to-zinc-100",
   },
   {
     title: "Tuning",
     icon: <SparkIcon />,
-    href: "#tuning",
+    href: "/leistungen#tuning",
     accent: "from-zinc-200 to-zinc-100",
   },
   {
     title: "Fahrzeughandel",
     icon: <CarIcon />,
-    href: "#fahrzeuge",
+    href: "/leistungen#fahrzeughandel",
     accent: "from-zinc-300 to-zinc-50",
   },
 ];
@@ -50,9 +50,20 @@ export default function Services() {
   return (
     <section id="leistungen" className="bg-white py-20 sm:py-28">
       <div className="container-x">
-        <h2 className="font-heading text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-brand-green">
-          Unsere Leistungen
-        </h2>
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <h2 className="font-heading text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-brand-green">
+            Unsere Leistungen
+          </h2>
+          <a
+            href="/leistungen"
+            className="inline-flex items-center gap-2 self-start sm:self-end text-sm font-semibold text-brand-ink hover:text-brand-green"
+          >
+            Alle Leistungen ansehen
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
 
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {services.map((service) => (

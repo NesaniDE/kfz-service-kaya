@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import Logo from "./Logo";
 
 const navItems = [
-  { href: "#start", label: "Home" },
-  { href: "#ueber-uns", label: "Über uns" },
-  { href: "#leistungen", label: "Leistungen" },
-  { href: "#galerie", label: "Einblicke" },
-  { href: "#kontakt", label: "Kontakt" },
+  { href: "/", label: "Home" },
+  { href: "/#ueber-uns", label: "Über uns" },
+  { href: "/leistungen", label: "Leistungen" },
+  { href: "/#galerie", label: "Einblicke" },
+  { href: "/#kontakt", label: "Kontakt" },
 ];
 
 export default function Header() {
@@ -38,7 +38,7 @@ export default function Header() {
       }`}
     >
       <div className="container-x flex h-20 items-center justify-between">
-        <a href="#start" className="flex items-center gap-3" aria-label="Startseite">
+        <a href="/" className="flex items-center gap-3" aria-label="Startseite">
           <Logo className="h-10 sm:h-11 w-auto" variant="dark" />
         </a>
 
