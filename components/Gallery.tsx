@@ -12,7 +12,10 @@ type Testimonial = {
   alt: string;
 };
 
-// Platzhalter — vom Inhaber später durch echte Kundenstimmen ersetzen.
+// Platzhalter — vom Inhaber später durch echte Kundenstimmen + Fotos ersetzen.
+const PLACEHOLDER_IMAGE = "/images/testimonial-placeholder.png";
+const PLACEHOLDER_ALT = "Platzhalter-Porträt für eine Kundenreferenz";
+
 const testimonials: Testimonial[] = [
   {
     name: "Thomas M.",
@@ -20,8 +23,8 @@ const testimonials: Testimonial[] = [
     quote:
       "Schnelle Terminvergabe, ehrliche Diagnose und ein fairer Preis. Genau so wünscht man sich eine Werkstatt um die Ecke.",
     rating: 5,
-    image: "/images/hero-workshop.png",
-    alt: "Werkstattszene als Platzhalter für Kundenfoto",
+    image: PLACEHOLDER_IMAGE,
+    alt: PLACEHOLDER_ALT,
   },
   {
     name: "Sandra K.",
@@ -29,8 +32,8 @@ const testimonials: Testimonial[] = [
     quote:
       "Mustafa hat sich Zeit genommen, mein Auto in Ruhe erklärt und die Bremsen am selben Tag gemacht. Sehr persönlicher Service.",
     rating: 5,
-    image: "/images/gallery-diagnose.png",
-    alt: "Diagnoseszene als Platzhalter für Kundenfoto",
+    image: PLACEHOLDER_IMAGE,
+    alt: PLACEHOLDER_ALT,
   },
   {
     name: "Lukas B.",
@@ -38,8 +41,8 @@ const testimonials: Testimonial[] = [
     quote:
       "TÜV-Vorbereitung, Bremsen und Reifenwechsel — alles in einem Termin und ohne Aufpreis-Falle. Klare Empfehlung.",
     rating: 5,
-    image: "/images/gallery-tireservice.png",
-    alt: "Reifenservice als Platzhalter für Kundenfoto",
+    image: PLACEHOLDER_IMAGE,
+    alt: PLACEHOLDER_ALT,
   },
   {
     name: "Petra H.",
@@ -47,8 +50,8 @@ const testimonials: Testimonial[] = [
     quote:
       "Nach dem Unfall hat das Team mein Auto wieder wie neu hingestellt. Sauber, freundlich und unkompliziert.",
     rating: 5,
-    image: "/images/gallery-detailing.png",
-    alt: "Aufbereitetes Fahrzeug als Platzhalter für Kundenfoto",
+    image: PLACEHOLDER_IMAGE,
+    alt: PLACEHOLDER_ALT,
   },
   {
     name: "Markus R.",
@@ -56,8 +59,8 @@ const testimonials: Testimonial[] = [
     quote:
       "Endlich eine Werkstatt, bei der man nicht das Gefühl hat, abgezockt zu werden. Top Beratung, top Preis.",
     rating: 5,
-    image: "/images/about-exterior.png",
-    alt: "Außenansicht als Platzhalter für Kundenfoto",
+    image: PLACEHOLDER_IMAGE,
+    alt: PLACEHOLDER_ALT,
   },
 ];
 
