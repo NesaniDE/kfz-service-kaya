@@ -6,7 +6,6 @@ import Logo from "./Logo";
 const navItems = [
   { href: "/#ueber-uns", label: "Über uns" },
   { href: "/leistungen", label: "Leistungen" },
-  { href: "/#galerie", label: "Einblicke" },
   { href: "/#kontakt", label: "Kontakt" },
 ];
 

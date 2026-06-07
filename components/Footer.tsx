@@ -22,7 +22,6 @@ export default function Footer() {
           <ul className="mt-5 space-y-3 text-sm">
             {[
               { href: "/#ueber-uns", label: "Über uns" },
-              { href: "/#galerie", label: "Einblicke" },
               { href: "/#kontakt", label: "Kontakt" },
               { href: "/datenschutz", label: "Datenschutz" },
               { href: "/impressum", label: "Impressum" },

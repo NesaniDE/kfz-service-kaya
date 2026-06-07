@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Contact from "@/components/Contact";
 import CtaBanner from "@/components/CtaBanner";
 import Footer from "@/components/Footer";
@@ -153,42 +152,16 @@ export default function LeistungenPage() {
               <span className="mx-2">/</span>
               <span className="text-white">Leistungen</span>
             </nav>
-
-            <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-              <div className="lg:col-span-7">
-                <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase leading-[1.05] tracking-tight">
-                  Unsere{" "}
-                  <span className="text-brand-green">Leistungen</span>
-                </h1>
-                <p className="mt-6 max-w-xl text-base sm:text-lg text-white/75 leading-relaxed">
-                  Von Wartung über Reparatur bis zu Diagnose, Tuning und
-                  Fahrzeughandel — bei KFZ-Service Kaya bekommen Sie alles aus
-                  einer Hand. Persönlich, ehrlich und zuverlässig vor Ort in
-                  Schwäbisch Gmünd.
-                </p>
-              </div>
-
-              <div className="lg:col-span-5">
-                <div className="relative mx-auto max-w-[280px] aspect-[3/4] overflow-hidden rounded-2xl ring-1 ring-white/15 shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
-                  <Image
-                    src="/images/leistungen-tafel.png"
-                    alt="Leistungstafel von KFZ-Service Kaya mit Übersicht aller Werkstattleistungen"
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 280px, 70vw"
-                    className="object-cover"
-                  />
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 bg-gradient-to-t from-brand-ink/40 via-transparent to-transparent"
-                  />
-                  <span
-                    aria-hidden
-                    className="absolute -top-3 -right-3 h-20 w-12 diag-stripes opacity-70 rotate-12"
-                  />
-                </div>
-              </div>
-            </div>
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase leading-[1.05] tracking-tight">
+              Unsere{" "}
+              <span className="text-brand-green">Leistungen</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-base sm:text-lg text-white/75 leading-relaxed">
+              Von Wartung über Reparatur bis zu Diagnose, Tuning und
+              Fahrzeughandel — bei KFZ-Service Kaya bekommen Sie alles aus
+              einer Hand. Persönlich, ehrlich und zuverlässig vor Ort in
+              Schwäbisch Gmünd.
+            </p>
           </div>
         </section>
 

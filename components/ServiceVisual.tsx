@@ -20,7 +20,7 @@ const sources: Record<ServiceId, { src: string; alt: string }> = {
     alt: "Werkstattinnenraum mit Fahrzeug auf der Hebebühne",
   },
   reparaturen: {
-    src: "/images/hero-workshop.png",
+    src: "/images/reparaturen-werkstatt.png",
     alt: "Reparaturarbeiten in der Werkstatt",
   },
   diagnose: {
